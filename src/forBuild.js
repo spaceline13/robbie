@@ -3,5 +3,5 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export const init = (id) => { ReactDOM.render(<App />, document.getElementById(id)); };
 registerServiceWorker();

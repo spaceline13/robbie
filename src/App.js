@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {client} from "./lib/apolloClient";
+import { ApolloProvider } from "react-apollo";
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import UserAreaHeader from "./Components/UserAreaHeader";
+import RegisterLogin from "./Components/RegisterLogin";
+import ExcelAndReactive from "./Components/ExcelAndReactive";
+import DatasetUpload from "./Components/DatasetUpload";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+        <BrowserRouter>
+            <ApolloProvider client={client}>
+              <div className="App">
+                  <Switch>
+                      <Route exact path="/" component={UserAreaHeader} />
+                      <Route exact path="/authenticate" component={RegisterLogin} />
+                      <Route exact path="/excel" component={ExcelAndReactive} />
+                      <Route exact path="/upload" component={DatasetUpload} />
+                  </Switch>
+              </div>
+            </ApolloProvider>
+        </BrowserRouter>
     );
   }
 }
