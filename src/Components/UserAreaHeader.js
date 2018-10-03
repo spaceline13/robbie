@@ -17,7 +17,8 @@ class UserAreaHeader extends Component {
                         </Link> &nbsp;
                         <button onClick={() => {
                                 localStorage.removeItem('auth-token');
-                                this.props.history.push(`/`);
+                                console.log(this.props.hash);
+                                window.location.reload();
                             }}
                         >
                             logout

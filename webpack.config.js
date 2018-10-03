@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: __dirname + '/src/forBuild.js',
+    entry: ["@babel/polyfill", __dirname + '/src/forBuild.js'],
     devtool: 'source-map',
     output: {
         path: __dirname + '/dist',
@@ -9,6 +9,9 @@ module.exports = {
         library: 'gup',
         libraryTarget: 'umd',
         umdNamedDefine: true
+    },
+    devServer: {
+        historyApiFallback: true,
     },
     module: {
         rules: [

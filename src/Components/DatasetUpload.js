@@ -3,6 +3,8 @@ import React from "react";
 import UserAreaHeader from "./UserAreaHeader";
 import { Form, Text } from 'informed';
 import request from "superagent";
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 class DatasetUpload extends Component {
     constructor(props) {
@@ -22,10 +24,9 @@ class DatasetUpload extends Component {
         this.fileChange = this.fileChange.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
     };
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+    handleInputChange(event,data) {
+        const value = data?data:event.target.value;//target.type === 'checkbox' ? target.checked : target.value;
+        const name = event.target.name;
         this.setState({
             [name]: value
         });
@@ -57,26 +58,34 @@ class DatasetUpload extends Component {
         const handleInputChange = this.handleInputChange;
         const fileChange = this.fileChange;
         const formSubmit = this.formSubmit;
+        const authToken = localStorage.getItem('auth-token');
         return (
             <div>
+
+                <CKEditor
+                    editor={ ClassicEditor }
+                    data=""
+                    onInit={ editor => {
+                        console.log( 'Editor is ready to use!', editor );
+                    } }
+                    onChange={ ( event, editor ) => {
+                        const data = editor.getData();
+                        handleInputChange(event,data);
+                    } }
+                />
                 <UserAreaHeader/>
+                {authToken ? (
                 <form onSubmit={formSubmit}>
-                    {Object.keys(state).map(function(key, index) {
-                        return (
-                            <div key={key} >
-                                <label>{key}
-                                    {key=="resources"?
-                                        <input type="file" onChange={fileChange} />
-                                    :
-                                        <input name={key} type="text" value={state[key]} onChange={handleInputChange} />
-                                    }
-                                </label>
-                                <br />
-                            </div>
-                        );
-                    })}
+                    <label>name<input name="name" type="text" value={state.name} onChange={handleInputChange} /></label><br />
+                    <label>title<input name="title" type="text" value={state.title} onChange={handleInputChange} /></label><br />
+                    <label>profile<input name="profile" type="text" value={state.profile} onChange={handleInputChange} /></label><br />
+                   <br />
+                    <label>version<input name="version" type="text" value={state.version} onChange={handleInputChange} /></label><br />
+                    <label>license<input name="license" type="text" value={state.license} onChange={handleInputChange} /></label><br />
+                    <label>resources<input type="file" onChange={fileChange} /></label><br />
                     <input type="submit"/>
                 </form>
+                ):<div></div>}
             </div>
         );
     }
