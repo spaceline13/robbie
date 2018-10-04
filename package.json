@@ -11,14 +11,22 @@
     "apollo-client": "^2.4.2",
     "apollo-link-context": "^1.0.9",
     "apollo-link-http": "^1.5.5",
+    "apollo-upload-client": "^9.0.0",
+    "fetch-autocomplete": "^1.2.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
     "informed": "^1.10.5",
+    "moment": "^2.22.2",
     "react": "^16.5.2",
     "react-apollo": "^2.2.3",
+    "react-async-autocomplete": "^1.1.0",
+    "react-ckeditor-wrapper": "^1.1.2",
+    "react-datepicker": "^1.6.0",
     "react-dom": "^16.5.2",
+    "react-fetch-textbox": "^1.0.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.3",
+    "react-select": "^2.0.0-beta.7",
     "sheetjs": "^1.0.21",
     "superagent": "^4.0.0-beta.5",
     "xlsx": "^0.14.0"
@@ -44,7 +52,12 @@
       "@babel/preset-react"
     ],
     "plugins": [
-      "@babel/plugin-proposal-class-properties"
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ]
     ]
   },
   "devDependencies": {
