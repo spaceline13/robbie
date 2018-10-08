@@ -10,10 +10,13 @@ class UserAreaHeader extends Component {
                 {authToken ? (
                     <div>
                         <Link to="/upload">
-                            Dataset Upload
+                            Upload Datapackage
                         </Link> &nbsp;
                         <Link to="/excel">
-                            Excel and Reactive Search
+                            Excel Editor
+                        </Link> &nbsp;
+                        <Link to="/myData">
+                            My Datapackages
                         </Link> &nbsp;
                         <button onClick={() => {
                                 localStorage.removeItem('auth-token');

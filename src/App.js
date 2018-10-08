@@ -5,7 +5,8 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 import Welcome from "./Components/Welcome";
 import RegisterLogin from "./Components/RegisterLogin";
 import ExcelAndReactive from "./Components/ExcelAndReactive";
-import DatasetUpload from "./Components/DatasetUpload";
+import DatapackageUpload from "./Components/DatapackageUpload";
+import MyDatapackage from "./Components/MyDatapackage";
 
 class App extends Component {
   render() {
@@ -17,7 +18,8 @@ class App extends Component {
                         <Route exact path="/" component={Welcome} />
                         <Route exact path="/authenticate" component={RegisterLogin} />
                         <Route exact path="/excel" component={ExcelAndReactive} />
-                        <Route exact path="/upload" component={DatasetUpload} />
+                        <Route exact path="/upload" component={DatapackageUpload} />
+                        <Route exact path="/myData" component={MyDatapackage} />
                     </Switch>
                 </div>
             </ApolloProvider>

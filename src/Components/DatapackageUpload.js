@@ -4,20 +4,13 @@ import UserAreaHeader from "./UserAreaHeader";
 import { Form, Text } from 'informed';
 import request from "superagent";
 import CKEditor from 'react-ckeditor-wrapper';
-import AsyncSelect  from 'react-select/lib/Async';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-const gql = require('graphql-tag');
-const { Mutation } = require('react-apollo');
-
-const UPLOAD = gql`
-      mutation($file: Upload!) {
-            uploadDatapackage(file:$file)
-      }
-`;
-
-class DatasetUpload extends Component {
+import UploadDataset from "./DatapackageUploadComps/UploadDataset";
+import AutocompleteRemote from "./DatapackageUploadComps/AutocompleteRemote";
+import DatapackageMutation from "./DatapackageUploadComps/DatapackageMutation"
+class DatapackageUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,6 +28,8 @@ class DatasetUpload extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
+        this.formRef = React.createRef();
+        this.resetForm = this.resetForm.bind(this);
     };
     handleInputChange(event) {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
@@ -43,10 +38,12 @@ class DatasetUpload extends Component {
             [name]: value
         });
     }
-    handleFileChange(e) {
+    handleFileChange(data) {
+        data = data.data.uploadDataset;
         var res = [];
-        res.push(e.target.files[0]);
+        res.push({name:data.name,path:data.path});
         this.setState({resources:res});
+        console.log(this.state);
     }
     formSubmit(e){
         const req = request.post('http://localhost:2000/uploadDataset');
@@ -80,32 +77,30 @@ class DatasetUpload extends Component {
             callback(objArr);
         });
     };
+    resetForm (){
+        this.formRef.current.reset();
+        this.setState({
+            name: '',
+            title: '',
+            profile: '',
+            description: '',
+            version: '',
+            author: '',
+            date:moment(),
+            license: [],
+            keywords: [],
+            resources: []
+        })
+    };
+
     render() {
         const authToken = localStorage.getItem('auth-token');
         const licesnes = [{name:'cc0',title:'mplampla',path:'www',label:'cc0'},{name:'ogl',title:'mplampla',path:'wwww',label:'ogl'}];
         return (
             <div>
                 <UserAreaHeader/>
-
-                <Mutation
-                    mutation={UPLOAD}
-                    onCompleted={data => console.log('mutation:',data)}
-                >
-                    {mutate => (
-                        <input
-                            type="file"
-                            required
-                            onChange={({
-                               target: {
-                                   files: [file]
-                               }
-                            }) => mutate({ variables: { file } })}
-                        />
-                    )}
-                </Mutation>
-
                 {authToken ? (
-                <form onSubmit={this.formSubmit}>
+                <form onSubmit={this.formSubmit} ref={this.formRef}>
                     <label>name<input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} /></label><br />
                     <label>title<input name="title" type="text" value={this.state.title} onChange={this.handleInputChange} /></label><br />
                     <label>profile<input name="profile" type="text" value={this.state.profile} onChange={this.handleInputChange} /></label><br />
@@ -113,9 +108,10 @@ class DatasetUpload extends Component {
                     <label>description<CKEditor value={this.state.description} onChange={(value)=>this.setState({ description:value })} /></label><br />
                     <label>date<DatePicker selected={this.state.date} onChange={(date)=>this.setState({ date:date })}/></label><br />
                     <label>license<Select options={licesnes} value={this.state.license} onChange={(license)=>this.setState({ license:license })} /></label><br />
-                    <label>keywords<AsyncSelect loadOptions={this.fetchKeywords} value={this.state.keywords} onChange={(keyword)=>this.setState({ keywords:keyword })} isMulti /></label><br />
-                    <label>resources<input type="file" onChange={this.handleFileChange} /></label><br />
-                    <input type="submit"/>
+                    <label>keywords<AutocompleteRemote value={this.state.keywords} setValue={(keyword)=>this.setState({ keywords:keyword })} /></label><br />
+
+                    <label>resources<UploadDataset form={this.formRef} changeFile={this.handleFileChange}/></label><br />
+                    <DatapackageMutation resetForm={this.resetForm} vars={this.state}/>
                 </form>
                 ):<div></div>}
             </div>
@@ -123,4 +119,4 @@ class DatasetUpload extends Component {
     }
 }
 
-export default DatasetUpload;
+export default DatapackageUpload;
