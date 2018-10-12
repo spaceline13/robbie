@@ -18,6 +18,9 @@ class UserAreaHeader extends Component {
                         <Link to="/myData">
                             My Datapackages
                         </Link> &nbsp;
+                        <Link to="/rdf">
+                            RDF
+                        </Link> &nbsp;
                         <button onClick={() => {
                                 localStorage.removeItem('auth-token');
                                 console.log(this.props.hash);

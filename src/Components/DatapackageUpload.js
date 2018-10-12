@@ -46,7 +46,7 @@ class DatapackageUpload extends Component {
         console.log(this.state);
     }
     formSubmit(e){
-        const req = request.post('http://localhost:2000/uploadDataset');
+        /*const req = request.post('http://localhost:2000/uploadDataset');
         for(var key in this.state){
             if(key=="resources"){
                 if(this.state.resources.length>0) {
@@ -65,18 +65,9 @@ class DatapackageUpload extends Component {
             }
         }
         req.field('username','timos');
-        req.end();
+        req.end();*/
+        this.props.onSubmit();
     }
-    fetchKeywords = (inputValue, callback) => {
-        fetch("http://192.168.1.102:9200/agrovoc/_search?q="+inputValue).then(response => response.json()).then(data => {
-            var res = data.hits;
-            var objArr = [];
-            res.hits.forEach(function(hit){
-                objArr.push({label:hit._source.label, value:hit._source.URI});
-            });
-            callback(objArr);
-        });
-    };
     resetForm (){
         this.formRef.current.reset();
         this.setState({
@@ -98,7 +89,6 @@ class DatapackageUpload extends Component {
         const licesnes = [{name:'cc0',title:'mplampla',path:'www',label:'cc0'},{name:'ogl',title:'mplampla',path:'wwww',label:'ogl'}];
         return (
             <div>
-                <UserAreaHeader/>
                 {authToken ? (
                 <form onSubmit={this.formSubmit} ref={this.formRef}>
                     <label>name<input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} /></label><br />
@@ -110,8 +100,8 @@ class DatapackageUpload extends Component {
                     <label>license<Select options={licesnes} value={this.state.license} onChange={(license)=>this.setState({ license:license })} /></label><br />
                     <label>keywords<AutocompleteRemote value={this.state.keywords} setValue={(keyword)=>this.setState({ keywords:keyword })} /></label><br />
 
-                    <label>resources<UploadDataset form={this.formRef} changeFile={this.handleFileChange}/></label><br />
-                    <DatapackageMutation resetForm={this.resetForm} vars={this.state}/>
+                    {this.props.noResource?<div></div>:<label>resources<UploadDataset form={this.formRef} changeFile={this.handleFileChange}/></label>}<br />
+                    <DatapackageMutation resetForm={this.resetForm} onSubmit={this.props.onSubmit} vars={this.state}/>
                 </form>
                 ):<div></div>}
             </div>

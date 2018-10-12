@@ -1,0 +1,6 @@
+span.twitter-typeahead {
+    width: 200px;
+}
+span.twitter-typeahead .tt-suggestion{
+    padding:0px
+}

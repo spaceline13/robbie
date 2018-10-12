@@ -1,5 +1,5 @@
 import { ApolloClient } from 'apollo-client';
-import {createUploadLink} from 'apollo-upload-client';
+import {createUploadLink} from 'apollo-upload-client/lib/index';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 

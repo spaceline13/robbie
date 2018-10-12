@@ -76,7 +76,6 @@ class RegisterLogin extends Component {
     _confirm = async data => {
         const { token } = this.state.login ? data.login : data.addUser;
         this._saveUserData(token);
-        console.log(this.props.hash);
         this.props.history.push(`/`);
     };
 

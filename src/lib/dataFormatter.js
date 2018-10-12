@@ -1,15 +1,20 @@
+export function getHeaders(input){
+    var output = [];
+    var fieldCount = 0;
+    if(input.length>0){
+        input[0].forEach(function(d) {
+            output.push({headerName: d, field: "field"+fieldCount++, editable:true, formatNames:[], currentFormat:'', currentType:''});
+        })
+    }
+    return output;
+}
 export function formatDataForReactAggrid(input) {
     const data = input;
     var output = {columnDefs:[],rowData:[]};
     var curRow = [];
     var rows = [];
-    var columns = [];
-    var fieldCount = 0;
-    if(data.length>0){
-        data[0].forEach(function(d) {
-            columns.push({headerName: d, field: "field"+fieldCount++, editable:true});
-        })
-    }
+    var columns = getHeaders(data);
+
     if(columns.length>0) {
         for (var i = 1; i < data.length; i++) {
             curRow = {};

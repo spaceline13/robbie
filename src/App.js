@@ -7,6 +7,7 @@ import RegisterLogin from "./Components/RegisterLogin";
 import ExcelAndReactive from "./Components/ExcelAndReactive";
 import DatapackageUpload from "./Components/DatapackageUpload";
 import MyDatapackage from "./Components/MyDatapackage";
+import MultistepRDF from "./Components/MultistepRDF";
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
                         <Route exact path="/excel" component={ExcelAndReactive} />
                         <Route exact path="/upload" component={DatapackageUpload} />
                         <Route exact path="/myData" component={MyDatapackage} />
+                        <Route exact path="/rdf" component={MultistepRDF} />
                     </Switch>
                 </div>
             </ApolloProvider>
