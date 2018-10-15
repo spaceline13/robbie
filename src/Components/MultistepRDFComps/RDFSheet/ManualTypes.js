@@ -49,14 +49,6 @@ class ManualTypes extends Component {
     }
 
     render() {
-        const options = [
-            { value: 'decimal', label: 'decimal' },
-            { value: 'integer', label: 'integer' },
-            { value: 'date', label: 'date' },
-            { value: 'boolean', label: 'boolean' },
-            { value: 'text', label: 'text' },
-            { value: 'url', label: 'url' }
-        ];
         return (
             <span style={this.props.style} ref={(element)=>this.element=element}>
                 <select value={this.state.type} onChange={this.onTypeChange}>
@@ -65,7 +57,7 @@ class ManualTypes extends Component {
                     <option value="integer">integer</option>
                     <option value="date">date</option>
                     <option value="boolean">boolean</option>
-                    <option value="text">url</option>
+                    <option value="text">text</option>
                     <option value="url">url</option>
                 </select>
                 {((this.state.type=='decimal')||(this.state.type=='integer')) &&

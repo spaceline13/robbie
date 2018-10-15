@@ -22,7 +22,7 @@ class MultistepRDF extends Component {
             <div>
                 {authToken ? (
                 <div className='step-progress'>
-                    <StepZilla showNavigation={false} steps={steps}/>
+                    <StepZilla stepsNavigation={false} showNavigation={false} steps={steps}/>
                 </div>
                 ):<div>Not authorized</div>}
             </div>

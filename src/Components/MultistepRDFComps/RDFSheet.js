@@ -15,7 +15,7 @@ class RDFSheet extends Component {
             selectedHeader: null,
             columnDefs: [],
             rowData: [],
-            ols:null,
+            hasBeenEdited:false,
             iframeUrl:'https://www.ebi.ac.uk/ols/search?q=',
             headers:getHeaders(XLSX.utils.sheet_to_json(this.props.sheet, {header:1}))
         };
@@ -37,10 +37,12 @@ class RDFSheet extends Component {
         var h = this.state.headers;
         h[header][field] = value;
         this.setState({headers:h});
+        this.setState({hasBeenEdited:true});
     }
     selectType(typeName,i){
         this.setState({selectedHeader:i});
         this.editHeader(i,'currentType',typeName);
+        this.setState({hasBeenEdited:true});
         //ui
         if(typeName=="Manual"){
             this.toggleClassManual(0,i);
@@ -79,6 +81,7 @@ class RDFSheet extends Component {
         }
     }
     toggleHeaderLines(checked,i){
+        this.setState({hasBeenEdited:true});
         if(checked){
             this.headerLines[i].style.display='inline-block';
             this.state.headers[i].checked=true;
@@ -155,7 +158,7 @@ class RDFSheet extends Component {
                                                 </span>
                                                 <span>
                                                     with name
-                                                    <input value={header.headerName}/>&nbsp;
+                                                    <input type="text" onChange={(e)=>{this.editHeader(i,'headerName',e.target.value)}} defaultValue={header.headerName}/>&nbsp;
                                                 </span>
                                             </span>
                                         </li>
