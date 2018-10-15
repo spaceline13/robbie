@@ -3,7 +3,7 @@ export function getHeaders(input){
     var fieldCount = 0;
     if(input.length>0){
         input[0].forEach(function(d) {
-            output.push({headerName: d, field: "field"+fieldCount++, editable:true, formatNames:[], currentFormat:'', currentType:''});
+            output.push({headerName: d, field: "field"+fieldCount++, editable:true, currentType:'ClassOf'});
         })
     }
     return output;

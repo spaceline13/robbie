@@ -16,19 +16,15 @@ class AutocompleteRemote extends Component {
         this.input = React.createRef();
         this.onChange = this.onChange.bind(this);
         this.onSelect = this.onSelect.bind(this);
-        this.getItemValue = this.getItemValue.bind(this);
         this.renderItem = this.renderItem.bind(this);
         this.retrieveDataAsynchronously = this.retrieveDataAsynchronously.bind(this);
     }
-    componentDidMount() {
-        this.input.focus();
-    }
     retrieveDataAsynchronously(searchText){
         let _this = this;
-        fetch("https://www.ebi.ac.uk/ols/api/select?q="+searchText).then(response => response.json()).then(data => {
-            var res = data.response.docs;
+        fetch(this.props.url+searchText+"&"+(this.props.addParameter?this.props.addParameter:'')).then(response => response.json()).then(data => {
+            var res = data[this.props.responseObj];
             _this.setState({
-                autocompleteData: res
+                autocompleteData: res[this.props.resultsObj]
             });
         });
     }
@@ -37,30 +33,30 @@ class AutocompleteRemote extends Component {
             value: e.target.value
         });
         this.retrieveDataAsynchronously(e.target.value);
-        this.props.onKeypress(e);
+        if(this.props.onKeypress)
+            this.props.onKeypress(e);
     }
-    onSelect(val){
+    onSelect(val,item){
+        console.log(val,item,'d');
         this.setState({
             value: val
         });
-        this.props.onSelect(val);
+        this.props.onSelect(item);
     }
     renderItem(item, isHighlighted){
         return (
             <div key={item.id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-                {item.label}
+                <b>{item.label}</b> {item.ontology_prefix?<i style={{color:'grey'}}>({item.ontology_prefix})</i>:<span></span>}
             </div>
         );
     }
-    getItemValue(item){
-        return item.label;
-    }
+
     render() {
         return (
             <div style={this.props.style} ref={(element)=>this.element=element}>
                 <Autocomplete
                     ref={el => this.input = el}
-                    getItemValue={this.getItemValue}
+                    getItemValue={this.props.getItemValue}
                     items={this.state.autocompleteData}
                     renderItem={this.renderItem}
                     value={this.state.value}

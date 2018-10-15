@@ -5,6 +5,7 @@ import Select from 'react-simpler-select';
 import Iframe from 'react-iframe';
 import AutocompleteRemote from "../Utils/AutocompleteRemote";
 import Checkbox from 'rc-checkbox';
+import ManualTypes from "./RDFSheet/ManualTypes";
 
 class DetermineHeaders extends Component {
     constructor(props) {
@@ -22,10 +23,11 @@ class DetermineHeaders extends Component {
             headers:[],
             ols:null,
             iframeUrl:'https://www.ebi.ac.uk/ols/search?q=',
-            fetchedData:{__html:''}
         };
+        this.char = 'A';
         this.olsSelectRefs = [];
         this.manualSelect = [];
+        this.classSelect = [];
         this.headerLines = [];
         this.openFile = this.openFile.bind(this);
         this.openFile(this.props.parent.state.excelFile);
@@ -33,6 +35,8 @@ class DetermineHeaders extends Component {
         this.selectType = this.selectType.bind(this);
         this.selectFormat = this.selectFormat.bind(this);
         this.toggleHeaderLines = this.toggleHeaderLines.bind(this);
+        this.toggleClassManual = this.toggleClassManual.bind(this);
+        this.generateChar = this.generateChar.bind(this);
     };
 
     openFile(file) {
@@ -52,6 +56,7 @@ class DetermineHeaders extends Component {
         if(rABS) reader.readAsBinaryString(file); else reader.readAsArrayBuffer(file);
     };
     selectSheet(sheetName){
+        this.char='A';
         const sheet = this.props.parent.state.workbook.Sheets[sheetName];
         this.setState({currentSheet:sheetName});
         const data = XLSX.utils.sheet_to_json(sheet, {header:1});
@@ -67,12 +72,7 @@ class DetermineHeaders extends Component {
             this.setState({headers:h});
 
             //UI
-            var olsSelect = this.olsSelectRefs[i].element;
-            if(olsSelect)
-                olsSelect.style.display='none';
-            var manual = this.manualSelect[i];
-            if(manual)
-                manual.style.display = 'inline-block';
+            this.toggleClassManual(0,i);
             this.toggleIframe(false);
         }else if(typeName=="Class"){
             var h = this.state.headers;
@@ -81,12 +81,7 @@ class DetermineHeaders extends Component {
             this.setState({headers:h});
 
             //UI
-            var olsSelect = this.olsSelectRefs[i].element;
-            if(olsSelect)
-                olsSelect.style.display='inline-block';
-            var manual = this.manualSelect[i];
-            if(manual)
-                manual.style.display = 'none';
+            this.toggleClassManual(1,i);
             this.toggleIframe(true);
         }
     }
@@ -95,6 +90,17 @@ class DetermineHeaders extends Component {
         var h = this.state.headers;
         h[i].currentFormat = formatName;
         this.setState({headers:h});
+    }
+    toggleClassManual(selectClass,i){
+        var classS = this.classSelect[i];
+        var manual = this.manualSelect[i];
+        if((selectClass===1) && classS && manual){
+            classS.style.display = 'inline-block';
+            manual.style.display = 'none';
+        } else {
+            manual.style.display = 'inline-block';
+            classS.style.display = 'none';
+        }
     }
     toggleIframe(open){
         var iframe = document.getElementById("searchIframe");
@@ -115,7 +121,20 @@ class DetermineHeaders extends Component {
             this.toggleIframe(false);
         }
     }
+    generateChar(){
+        //get letter to generate
+        var c = this.char;
+        //increment letter
+        var lastC = c.substr(c.length - 1);
+        if(lastC=='Z'){
+            this.char=this.char.substr(0,c.length-1)+'AA';
+        } else {
+            this.char=this.char.substr(0,c.length-1)+String.fromCharCode(lastC.charCodeAt(0)+1);
+        }
+        return c;
+    }
     render() {
+        this.char = 'A';
         return (
             <div>
                 {this.state.loaded?
@@ -130,45 +149,52 @@ class DetermineHeaders extends Component {
                                             {this.state.headers.map((header, i) =>
                                                 <li key={i}>
                                                     <Checkbox onChange={(e)=>{this.toggleHeaderLines(e.target.checked,i)}}/>
-                                                    <b>{header.headerName}</b>&nbsp;
+                                                    <b>{this.generateChar()+" ("+header.headerName})</b>&nbsp;
                                                     <span ref={(element)=>this.headerLines[i]=element} style={{display:'none'}}>
                                                         contains data about <Select placeholder="Select a type" options={this.state.typeNames} onChange={(value)=>{this.selectType(value,i)}}/>&nbsp;
-                                                        of type&nbsp;
-                                                        <AutocompleteRemote
-                                                            ref={(element)=>this.olsSelectRefs[i]=element}
-                                                            url={'https://www.ebi.ac.uk/ols/api/search?q='}
-                                                            style={{display:'inline-block'}}
-                                                            onSelect={(value)=>{
-                                                                this.selectFormat(value.label,i);
-                                                            }}
-                                                            onKeypress={(e)=>{
-                                                                var elem = e.target;
-                                                                this.setState({iframeUrl:'https://www.ebi.ac.uk/ols/search?q='+elem.value});
-                                                                //take the focus back from iframe
-                                                                for (var i = 0; i < 15; i++) {
-                                                                    setTimeout(function () {
-                                                                        if(elem)
-                                                                            elem.focus();
-                                                                    }, i * 100)
-                                                                }
-                                                            }}
-                                                            onFocus={()=>{
-                                                                this.setState({selectedHeader:i});
-                                                                var iframe = document.getElementById("searchIframe");
-                                                                if(iframe.style.display='none')
-                                                                    iframe.style.display = 'block';
-                                                            }}
-                                                        />
-                                                        <div ref={(element)=>this.manualSelect[i]=element} id={'Manual'+i} style={{display:'none'}}>
-                                                            <span>
-                                                                with name
-                                                                <input placeholder={"name"}/>&nbsp;
-                                                            </span>
-                                                            <span>
+                                                        <span ref={(element)=>this.classSelect[i]=element}>
+                                                            of type&nbsp;
+                                                            <AutocompleteRemote
+                                                                ref={(element)=>this.olsSelectRefs[i]=element}
+                                                                url={'https://www.ebi.ac.uk/ols/api/search?q='}
+                                                                responseObj={'response'}
+                                                                resultsObj={'docs'}
+                                                                style={{display:'inline-block'}}
+                                                                onSelect={(value)=>{
+                                                                    this.selectFormat(value,i);
+                                                                }}
+                                                                onKeypress={(e)=>{
+                                                                    var elem = e.target;
+                                                                    this.setState({iframeUrl:'https://www.ebi.ac.uk/ols/search?q='+elem.value});
+                                                                    //take the focus back from iframe
+                                                                    for (var i = 0; i < 15; i++) {
+                                                                        setTimeout(function () {
+                                                                            if(elem)
+                                                                                elem.focus();
+                                                                        }, i * 100)
+                                                                    }
+                                                                }}
+                                                                onFocus={()=>{
+                                                                    this.setState({selectedHeader:i});
+                                                                    var iframe = document.getElementById("searchIframe");
+                                                                    if(iframe.style.display='none')
+                                                                        iframe.style.display = 'block';
+                                                                }}
+                                                                getItemValue={(item)=>{
+                                                                    return item.label + " (" + item.ontology_prefix + ")";
+                                                                }}
+                                                            />
+                                                        </span>
+                                                        <span ref={(element)=>this.manualSelect[i]=element} id={'Manual'+i} style={{display:'none'}}>
+                                                            <span style={{width:'200px'}}>
                                                                 of type
-                                                                <select options={[123,234,345]}/>
+                                                                <ManualTypes/>
                                                             </span>
-                                                        </div>
+                                                        </span>
+                                                        <span>
+                                                            with name
+                                                            <input value={header.headerName}/>&nbsp;
+                                                        </span>
                                                     </span>
                                                 </li>
                                             )}

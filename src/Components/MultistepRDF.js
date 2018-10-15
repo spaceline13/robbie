@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import StepZilla from 'react-stepzilla';
-import DetermineHeaders from './MultistepRDFComps/DetermineHeaders';
 import UploadXL from "./MultistepRDFComps/UploadXL";
-import DatapackageUpload from "./DatapackageUpload";
+import MakeRDF from "./MultistepRDFComps/MakeRDF";
 
 class MultistepRDF extends Component {
     constructor(props) {
@@ -16,9 +15,8 @@ class MultistepRDF extends Component {
     render() {
         const authToken = localStorage.getItem('auth-token');
         const steps = [
-            {name: 'StepOne', component: <DatapackageUpload noResource={true} parent={this}/>},
-            {name: 'StepTwo', component: <UploadXL parent={this}/>},
-            {name: 'StepThree', component: <DetermineHeaders parent={this}/>},
+            {name: 'Upload', component: <UploadXL parent={this}/>},
+            {name: 'Make RDF', component: <MakeRDF parent={this}/>},
         ];
         return (
             <div>

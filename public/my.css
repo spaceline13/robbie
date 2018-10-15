@@ -4,3 +4,6 @@ span.twitter-typeahead {
 span.twitter-typeahead .tt-suggestion{
     padding:0px
 }
+.olsIframe{
+    overflow:hidden
+}

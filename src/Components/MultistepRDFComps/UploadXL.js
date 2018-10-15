@@ -10,7 +10,7 @@ class UploadXL extends Component {
 
     openFile(file) {
         this.props.parent.setState({excelFile:file});
-        this.props.jumpToStep(2);
+        this.props.jumpToStep(1);
     };
 
     render() {
