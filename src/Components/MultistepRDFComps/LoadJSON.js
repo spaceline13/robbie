@@ -27,7 +27,14 @@ class LoadJSON extends Component {
         reader.onload = function(e) {
             var arr = [];
             var contents = e.target.result;
-            var json = JSON.parse(contents);
+            try {
+                var json = JSON.parse(contents);
+            } catch (e) {
+                alert('the file you specified is not a valid model in json format');
+                loader(false);
+                return false;
+            }
+
             for(var sheet in json.sheets){
                 arr[sheet] = [];
                 for(var header in json.sheets[sheet].headers){
