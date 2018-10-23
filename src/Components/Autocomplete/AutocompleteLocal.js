@@ -2,15 +2,18 @@ import {Component} from "react";
 import React from "react";
 import Autocomplete from 'react-autocomplete';
 
-
+const notValidatedColor = 'red';
+const validatedColor = 'green';
 class AutocompleteLocal extends Component {
 
     constructor(props, context) {
         super(props, context);
         // Set initial State
         this.state = {
-            value: "",
-            autocompleteData: []
+            value: props.defaultValue?props.defaultValue:"",
+            autocompleteData: [],
+            isValidated:props.isValid,
+            inputProps: {onFocus:this.props.onFocus,style:{border:'1px solid '+(props.isValid?validatedColor:notValidatedColor)}},
         };
         this.element = React.createRef();
         this.input = React.createRef();
@@ -18,26 +21,24 @@ class AutocompleteLocal extends Component {
         this.onSelect = this.onSelect.bind(this);
         this.getItemValue = this.getItemValue.bind(this);
         this.renderItem = this.renderItem.bind(this);
-        this.retrieveDataAsynchronously = this.retrieveDataAsynchronously.bind(this);
-    }
-    retrieveDataAsynchronously(searchText){
-        let _this = this;
-        fetch("https://www.ebi.ac.uk/ols/api/select?q="+searchText).then(response => response.json()).then(data => {
-            var res = data.response.docs;
-            _this.setState({
-                autocompleteData: res
-            });
-        });
     }
     onChange(e){
+        var value = e.target.value;
         this.setState({
-            value: e.target.value
+            value: value
         });
-
+       // if(value==''){
+            this.setState({
+                isValidated:false,
+                inputProps:Object.assign(this.state.inputProps, {style:{border:'1px solid '+notValidatedColor}})
+            });
+       // }
     }
     onSelect(val){
         this.setState({
-            value: val
+            value: val,
+            isValidated:true,
+            inputProps:Object.assign(this.state.inputProps, {style:{border:'1px solid '+validatedColor}})
         });
         this.props.onSelect(val);
     }
@@ -52,11 +53,11 @@ class AutocompleteLocal extends Component {
         return item.label;
     }
     sortItems(a, b, value) {
-        const aLower = a.label.toLowerCase()
-        const bLower = b.label.toLowerCase()
-        const valueLower = value.toLowerCase()
-        const queryPosA = aLower.indexOf(valueLower)
-        const queryPosB = bLower.indexOf(valueLower)
+        const aLower = a.label.toLowerCase();
+        const bLower = b.label.toLowerCase();
+        const valueLower = value.toLowerCase();
+        const queryPosA = aLower.indexOf(valueLower);
+        const queryPosB = bLower.indexOf(valueLower);
         if (queryPosA !== queryPosB) {
             return queryPosA - queryPosB
         }
@@ -70,7 +71,7 @@ class AutocompleteLocal extends Component {
             <span style={this.props.style} ref={(element)=>this.element=element}>
                 <Autocomplete
                     value={this.state.value}
-                    inputProps={{}}
+                    inputProps={this.state.inputProps}
                     wrapperStyle={{ position: 'relative', display: 'inline-block' }}
                     items={this.props.items}
                     getItemValue={this.getItemValue}

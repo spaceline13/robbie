@@ -21,9 +21,11 @@
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
     "informed": "^1.10.5",
+    "js-file-download": "^0.4.4",
     "moment": "^2.22.2",
     "ols-autocomplete": "^0.0.91",
     "rc-checkbox": "^2.1.5",
+    "rc-tooltip": "^3.7.3",
     "react": "^16.5.2",
     "react-apollo": "^2.2.3",
     "react-async-autocomplete": "^1.1.0",
@@ -40,9 +42,11 @@
     "react-simpler-select": "^3.0.0",
     "react-stepzilla": "^4.7.2",
     "react-tabs": "^2.3.0",
+    "react-validation": "^3.0.7",
     "save": "^2.3.2",
     "sheetjs": "^1.0.21",
     "superagent": "^4.0.0-beta.5",
+    "validator": "^10.8.0",
     "xlsx": "^0.14.0"
   },
   "scripts": {

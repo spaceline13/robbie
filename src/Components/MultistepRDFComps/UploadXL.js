@@ -16,6 +16,7 @@ class UploadXL extends Component {
     render() {
         return (
             <div>
+                <b>Please Upload your spreadsheet and make sure that it names all the headers in the first row. If There are columns with no header name specified, there will be problems with the functionality.</b>
                 <DragDropFile handleFile={this.openFile}>
                     <span style={{}}>&nbsp;or click on the button to browse local files:</span>
                     <DataInput handleFile={this.openFile}/>

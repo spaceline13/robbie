@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import XLSX from 'xlsx';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import RDFSheet from './RDFSheet';
+import fileDownload from 'js-file-download';
+import {formatDataForRDFization} from "../../lib/dataFormatter";
 
 class MakeRDF extends Component {
     constructor(props) {
@@ -11,15 +13,15 @@ class MakeRDF extends Component {
             currentSheet: null,
             selectedHeader: null,
             loaded: false,
-            workbook: null,
             columnDefs: [],
             rowData: [],
         };
         this.sheets = [];
-        this.editedSheets = [];
+        this.editedSheets = this.props.parent.state.rdfModel?props.parent.state.rdfModel:[];
         this.openFile = this.openFile.bind(this);
         this.openFile(this.props.parent.state.excelFile);
         this.saveSheet = this.saveSheet.bind(this);
+        this.checkHeaderValidation = this.checkHeaderValidation.bind(this);
     };
 
     openFile(file) {
@@ -34,29 +36,78 @@ class MakeRDF extends Component {
             this.props.parent.setState({workbook:wb});
             this.setState({currentSheet: 0});
             this.setState({sheetNames: sheets});
+            this.setState({validSheets: sheets});
             this.setState({loaded:true});
-            console.log(this.state.sheetNames);
         };
         if(rABS) reader.readAsBinaryString(file); else reader.readAsArrayBuffer(file);
     };
+    checkHeaderValidation(sheetName,headerI){
+        const nameValidator = this.sheets[sheetName].state.headers[headerI].isNameValid;
+        const classOfValidator = (!(this.sheets[sheetName].state.headers[headerI].currentType=='Class')) || this.sheets[sheetName].classOfRef[headerI].checkValid();
+        const manualValidator = (!(this.sheets[sheetName].state.headers[headerI].currentType=='Manual')) || this.sheets[sheetName].manualRef[headerI].checkValid();
+        //console.log(nameValidator,classOfValidator,manualValidator);
+        if(nameValidator&&classOfValidator&&manualValidator){
+            return true;
+        } else {
+            return false;
+        }
+    }
     saveSheet(sheetName){
         if(this.sheets[sheetName].state.hasBeenEdited){
             var name = this.sheets[sheetName].props.sheetName;
             var headers = [];
+            var validSheet = true;
             if(this.sheets[sheetName] && this.sheets[sheetName].state.headers){
-                this.sheets[sheetName].state.headers.forEach(function(header){
-                    if(header.checked){
-                        headers.push(header);
+                for (var i=0;i<this.sheets[sheetName].state.headers.length;i++){
+                    if (this.sheets[sheetName].state.headers[i].checked) {
+                        headers[i] = (this.sheets[sheetName].state.headers[i]);
+                        if(!this.checkHeaderValidation(sheetName,i)){
+                            validSheet = false;
+                            //console.log('entered not valid',i);
+                        }
                     }
-                });
+                }
             }
+            //this.setState({validSheets:})
             this.editedSheets[name]=headers;
+            this.editedSheets[name]['isValid']=validSheet;
             //ui
             var elem = document.getElementById('react-tabs-'+sheetName*2);
-            if(elem)
+            if(elem && validSheet)
                 elem.style.backgroundColor = '#00800040';
+            else
+                elem.style.backgroundColor = '#e67f7f';
         }
-        console.log(this.editedSheets);
+    }
+    download(content, fileName, contentType) {
+        var modelJSON = {sheets:{}};
+        var rdfJSON = {sheets:[]};
+        var validDoc = true;
+        for(var sheet in content){
+            modelJSON.sheets[sheet] = {headers:{}};
+            rdfJSON.sheets[sheet] = {headers:null};
+            const data = XLSX.utils.sheet_to_json(this.props.parent.state.workbook.Sheets[sheet], {header:1});
+            for (var header in content[sheet]){
+                modelJSON.sheets[sheet].headers[header] = content[sheet][header];
+                if(!content[sheet]['isValid']) {
+                    validDoc = false;
+                }
+            }
+            //setTimeout(function(){
+            rdfJSON.sheets[sheet].headers = formatDataForRDFization(data,modelJSON.sheets[sheet].headers);
+            console.log('data:',rdfJSON);
+            //},3000);
+        }
+        if(validDoc) {
+            //console.log(JSON, JSON.stringify(modelJSON));
+            var file = new Blob([JSON.stringify(modelJSON)], {type: contentType});
+            fileDownload(file, fileName);
+        } else {
+            alert('You have sheets with not valid info. Please correct them and try again')
+        }
+    }
+    makeJSONincludingData(content){
+
     }
     render() {
         return (
@@ -73,14 +124,20 @@ class MakeRDF extends Component {
                                     </TabList>
                                     {this.state.sheetNames.map((name, i) =>
                                         <TabPanel key={i}>
-                                            <RDFSheet ref={(rdfSheet) => {this.sheets[i] = rdfSheet}} sheetName={name.label} sheet={this.props.parent.state.workbook.Sheets[name.label]}/>
+                                            <RDFSheet
+                                                ref={(rdfSheet) => {this.sheets[i] = rdfSheet}}
+                                                sheetName={name.label}
+                                                sheet={this.props.parent.state.workbook.Sheets[name.label]}
+                                                savedData={this.editedSheets[name.label]}
+                                            />
                                         </TabPanel>
                                     )}
                                 </Tabs>
                                 <div>
                                     <button onClick={()=>{
                                         this.saveSheet(this.state.currentSheet);
-                                    }}>show</button>
+                                        this.download(this.editedSheets,'myJSON.json','application/json');
+                                    }}>save JSON</button>
                                 </div>
                             </div>
                         : <div></div>

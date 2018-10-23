@@ -3,9 +3,9 @@ import XLSX from 'xlsx';
 import {getHeaders} from '../../lib/dataFormatter';
 import Select from 'react-simpler-select';
 import Iframe from 'react-iframe';
-import AutocompleteRemote from "../Utils/AutocompleteRemote";
+import AutocompleteRemote from "../Autocomplete/AutocompleteRemote";
 import Checkbox from 'rc-checkbox';
-import ManualTypes from "./RDFSheet/ManualTypes";
+import ManualTypes from "../MultistepRDFComps/RDFSheet/ManualTypes";
 
 class DetermineHeaders extends Component {
     constructor(props) {

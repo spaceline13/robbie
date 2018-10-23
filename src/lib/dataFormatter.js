@@ -3,7 +3,7 @@ export function getHeaders(input){
     var fieldCount = 0;
     if(input.length>0){
         input[0].forEach(function(d) {
-            output.push({headerName: d, field: "field"+fieldCount++, editable:true, currentType:'ClassOf'});
+            output.push({headerName: d, field: "field"+fieldCount++, editable:true, currentType:'Class', isNameValid:true});
         })
     }
     return output;
@@ -50,4 +50,18 @@ export function formatDataForXLSX(input){
         output.push(curRow);
     });
     return output;
+}
+export function formatDataForRDFization(input,headers){
+    const data = input;
+    var output = {columns:[]};
+    for (var header in headers){ //columns
+        if(header!='isValid') {//there is a header named isvalid which we want to skip
+            output.columns[header] = headers[header];
+            output.columns[header].data = [];
+            for (var i = 1; i < data.length; i++) { //rows
+                output['columns'][header]['data'].push(input[i][header]);
+            }
+        }
+    }
+    return (output);
 }
