@@ -9,7 +9,7 @@ class ExcelAndReactive extends Component {
         const authToken = localStorage.getItem('auth-token');
         return (
             <div>
-                <UserAreaHeader/>
+                <UserAreaHeader features={['auth','excel','rdf','upload','myData']}/>
                 {authToken ? (
                 <div>
                     <div style={{width:'60%', float:'left', display:'inline-block'}}>

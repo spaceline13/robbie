@@ -98,6 +98,7 @@ class DatapackageUpload extends Component {
         const licesnes = [{name:'cc0',title:'mplampla',path:'www',label:'cc0'},{name:'ogl',title:'mplampla',path:'wwww',label:'ogl'}];
         return (
             <div>
+                <UserAreaHeader features={['auth','upload','myData']}/>
                 {authToken ? (
                 <form onSubmit={this.formSubmit} ref={this.formRef}>
                     <label>Name<input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} /></label><br />

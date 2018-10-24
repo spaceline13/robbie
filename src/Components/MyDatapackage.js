@@ -27,7 +27,7 @@ class MyDatapackage extends Component {
         const authToken = localStorage.getItem('auth-token');
         return (
             <div>
-                <UserAreaHeader/>
+                <UserAreaHeader features={['auth','upload','myData']}/>
                 <br />
                 {authToken ? (
                     <Query query={DATAPACKAGES}>

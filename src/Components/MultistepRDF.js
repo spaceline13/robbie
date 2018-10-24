@@ -16,7 +16,6 @@ class MultistepRDF extends Component {
     };
 
     render() {
-        const authToken = localStorage.getItem('auth-token');
         const steps = [
             {name: 'Upload Excel File', component: <UploadXL parent={this}/>},
             {name: 'Choose Model', component: <LoadJSON parent={this}/>},
@@ -25,11 +24,9 @@ class MultistepRDF extends Component {
         ];
         return (
             <div>
-                {authToken ? (
                 <div className='step-progress'>
                     <StepZilla stepsNavigation={false} showNavigation={false} steps={steps}/>
                 </div>
-                ):<div>Not authorized</div>}
             </div>
         );
     };

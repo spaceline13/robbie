@@ -4,23 +4,24 @@ import { Link } from 'react-router-dom';
 
 class UserAreaHeader extends Component {
     render() {
-        const authToken = localStorage.getItem('auth-token');
+        const authToken = this.props.features.includes('auth')?localStorage.getItem('auth-token'):true;
         return (
             <div>
                 {authToken ? (
                     <div>
-                        <Link to="/upload">
+                        {this.props.features.includes('upload')?<Link style={{marginRight:'5px'}} to="/upload">
                             Upload Datapackage
-                        </Link> &nbsp;
-                        <Link to="/excel">
+                        </Link>:<span></span>}
+                        {this.props.features.includes('excel')? <Link style={{marginRight:'5px'}} to="/excel">
                             Excel Editor
-                        </Link> &nbsp;
-                        <Link to="/myData">
+                        </Link>:<span></span>}
+                        {this.props.features.includes('myData')? <Link style={{marginRight:'5px'}} to="/myData">
                             My Datapackages
-                        </Link> &nbsp;
-                        <Link to="/rdf">
+                        </Link>:<span></span>}
+                        {this.props.features.includes('rdf')? <Link style={{marginRight:'5px'}} to="/rdf">
                             RDF
-                        </Link> &nbsp;
+                        </Link>:<span></span>}
+                        {this.props.features.includes('auth')?
                         <button onClick={() => {
                                 localStorage.removeItem('auth-token');
                                 console.log(this.props.hash);
@@ -28,7 +29,7 @@ class UserAreaHeader extends Component {
                             }}
                         >
                             logout
-                        </button>
+                        </button>:<span></span>}
                     </div>
                 ) : (
                     <Link to="/authenticate">

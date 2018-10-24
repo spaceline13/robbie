@@ -1,14 +1,14 @@
 import {Component} from "react";
 import React from "react";
-import UserAreaHeader from "./UserAreaHeader";
+import UserAreaHeader from "../UserAreaHeader";
 import { Link } from 'react-router-dom';
 
-class Welcome extends Component {
+class GardianRepositories extends Component {
     render() {
         const authToken = localStorage.getItem('auth-token');
         return (
             <div>
-                <UserAreaHeader features={['auth','excel','rdf','myData','upload']}/>
+                <UserAreaHeader features={['auth','myData','upload']}/>
                 {authToken ? (
                     <center>
                         <Link to="/upload" style={{display:"inline-block", cursor: "pointer", margin:"15px", textDecoration:"none"}}>
@@ -22,18 +22,6 @@ class Welcome extends Component {
                                 cursor: "pointer",
                                 borderRadius: "10px"}}></button><br />
                             Upload Datapackage
-                        </Link>
-                        <Link to="/excel" style={{display:"inline-block", cursor: "pointer", margin:"15px", textDecoration:"none"}}>
-                            <button style={{
-                                backgroundImage: "url('https://visualpharm.com/assets/783/Microsoft%20Excel-595b40b75ba036ed117d8166.svg')",
-                                width: "200px",
-                                height: "200px",
-                                backgroundColor: "white",
-                                backgroundRepeat: "round",
-                                cursor: "pointer",
-                                border: "1px solid grey",
-                                borderRadius: "10px"}}></button><br />
-                            Excel Editor
                         </Link>
                         <Link to="/myData" style={{display:"inline-block", cursor: "pointer", margin:"15px", textDecoration:"none"}}>
                             <button style={{
@@ -56,4 +44,4 @@ class Welcome extends Component {
     }
 }
 
-export default Welcome;
+export default GardianRepositories;

@@ -8,6 +8,8 @@ import ExcelAndReactive from "./Components/ExcelAndReactive";
 import DatapackageUpload from "./Components/DatapackageUpload";
 import MyDatapackage from "./Components/MyDatapackage";
 import MultistepRDF from "./Components/MultistepRDF";
+import GardianRepositories from "./Components/Gardian/GardianRepositories";
+import GardianServices from "./Components/Gardian/GardianServices";
 
 class App extends Component {
   render() {
@@ -22,6 +24,8 @@ class App extends Component {
                         <Route exact path="/upload" component={DatapackageUpload} />
                         <Route exact path="/myData" component={MyDatapackage} />
                         <Route exact path="/rdf" component={MultistepRDF} />
+                        <Route exact path="/gardianServices" component={GardianServices} />
+                        <Route exact path="/gardianRepo" component={GardianRepositories} />
                     </Switch>
                 </div>
             </ApolloProvider>
