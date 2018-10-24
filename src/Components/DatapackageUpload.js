@@ -15,12 +15,17 @@ class DatapackageUpload extends Component {
         this.state = {
             name: '',
             title: '',
-            profile: '',
+            author:'',
+            conEmail:'',
             description: '',
-            version: '',
-            author: '',
+            subject:'',
+            producer:'',
             date:moment(),
+            kind:'',
+            sources: '',
+            related: '',
             license: [],
+            terms:'',
             keywords: [],
             resources: []
         };
@@ -108,9 +113,8 @@ class DatapackageUpload extends Component {
                     <label>Related material<input name="related" type="text" value={this.state.related} onChange={this.handleInputChange} /></label><br />
                     <label>License<Select options={licesnes} value={this.state.license} onChange={(license)=>this.setState({ license:license })} /></label><br />
                     <label>Terms of use<input name="terms" type="text" value={this.state.terms} onChange={this.handleInputChange} /></label><br />
-                    <label>References by <MultiSelectRemote value={this.state.keywords} setValue={(keyword)=>this.setState({ keywords:keyword })} /></label><br />
+                    <label>Referenced by<input name="referenced" type="text" value={this.state.referenced} onChange={this.handleInputChange} /></label><br />
                     <label>keywords<MultiSelectRemote value={this.state.keywords} setValue={(keyword)=>this.setState({ keywords:keyword })} /></label><br />
-
                     {this.props.noResource?<div></div>:<label>resources<UploadDataset form={this.formRef} changeFile={this.handleFileChange}/></label>}<br />
                     <DatapackageMutation resetForm={this.resetForm} onSubmit={this.props.onSubmit} vars={this.state}/>
                 </form>

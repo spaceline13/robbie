@@ -15,6 +15,7 @@ class MakeRDF extends Component {
             loaded: false,
             columnDefs: [],
             rowData: [],
+            globalValidHeaders:0
         };
         this.sheets = [];
         this.editedSheets = this.props.parent.state.rdfModel?props.parent.state.rdfModel:[];
@@ -22,6 +23,8 @@ class MakeRDF extends Component {
         this.openFile(this.props.parent.state.excelFile);
         this.saveSheet = this.saveSheet.bind(this);
         this.checkHeaderValidation = this.checkHeaderValidation.bind(this);
+        this.increaseGlobalChecks = this.increaseGlobalChecks.bind(this);
+        this.decreaseGlobalChecks = this.decreaseGlobalChecks.bind(this);
     };
 
     openFile(file) {
@@ -109,6 +112,14 @@ class MakeRDF extends Component {
     makeJSONincludingData(content){
 
     }
+    increaseGlobalChecks(){
+        console.log(this.state.globalValidHeaders);
+        this.setState({globalValidHeaders:this.state.globalValidHeaders+1});
+    }
+    decreaseGlobalChecks(){
+        console.log(this.state.globalValidHeaders);
+        this.setState({globalValidHeaders:this.state.globalValidHeaders-1});
+    }
     render() {
         return (
             <div>
@@ -129,6 +140,8 @@ class MakeRDF extends Component {
                                                 sheetName={name.label}
                                                 sheet={this.props.parent.state.workbook.Sheets[name.label]}
                                                 savedData={this.editedSheets[name.label]}
+                                                increaseGlobalChecks={this.increaseGlobalChecks}
+                                                decreaseGlobalChecks={this.decreaseGlobalChecks}
                                             />
                                         </TabPanel>
                                     )}
@@ -137,7 +150,10 @@ class MakeRDF extends Component {
                                     <button onClick={()=>{
                                         this.saveSheet(this.state.currentSheet);
                                         this.download(this.editedSheets,'myJSON.json','application/json');
-                                    }}>save JSON</button>
+                                    }} className={this.state.globalValidHeaders>0?'':'disabled'}>download model</button>
+                                    <button onClick={()=>{
+                                        this.props.jumpToStep(3);
+                                    }} className={this.state.globalValidHeaders>0?'':'disabled'}>generate rdf</button>
                                 </div>
                             </div>
                         : <div></div>

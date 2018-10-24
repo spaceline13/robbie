@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ebe4b62-5e5d-4b08-9560-dd2b8bea57a6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Components/MultistepRDFComps/GenerateRDF.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/DatapackageUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DatapackageUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DatapackageUploadComps/AutocompleteRemote.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DatapackageUploadComps/MultiSelectRemote.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DatapackageUploadComps/DatapackageMutation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DatapackageUploadComps/DatapackageMutation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/MyDatapackage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MyDatapackage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/MultistepRDF.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MultistepRDF.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/MultistepRDFComps/MakeRDF.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MultistepRDFComps/MakeRDF.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,7 +40,7 @@
           <entry key="css" value="18" />
           <entry key="env" value="1" />
           <entry key="html" value="18" />
-          <entry key="js" value="147" />
+          <entry key="js" value="151" />
           <entry key="json" value="10" />
           <entry key="lock" value="1" />
           <entry key="mjs" value="2" />
@@ -53,8 +54,8 @@
           <entry key="HTML" value="18" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="12" />
-          <entry key="JavaScript" value="147" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="JavaScript" value="150" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="yarn.lock" value="1" />
         </counts>
       </usages-collector>
@@ -70,9 +71,9 @@
           <entry key="css" value="51" />
           <entry key="env" value="1" />
           <entry key="html" value="338" />
-          <entry key="js" value="31697" />
+          <entry key="js" value="32642" />
           <entry key="json" value="124" />
-          <entry key="txt" value="83" />
+          <entry key="txt" value="89" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -80,8 +81,8 @@
           <entry key="CSS" value="51" />
           <entry key="HTML" value="338" />
           <entry key="JSON" value="129" />
-          <entry key="JavaScript" value="31697" />
-          <entry key="PLAIN_TEXT" value="84" />
+          <entry key="JavaScript" value="32630" />
+          <entry key="PLAIN_TEXT" value="102" />
         </counts>
       </usages-collector>
     </session>
@@ -94,8 +95,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/MakeRDF.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2116">
-              <caret line="97" column="39" selection-start-line="97" selection-start-column="39" selection-end-line="97" selection-end-column="39" />
+            <state relative-caret-position="259">
+              <caret line="154" column="65" selection-start-line="154" selection-start-column="65" selection-end-line="154" selection-end-column="65" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDF.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -104,12 +117,21 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet/ManualTypes.js">
+        <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/GenerateRDF.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2484">
-              <caret line="111" column="26" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="26" />
+            <state relative-caret-position="-92">
+              <caret line="2" column="37" lean-forward="true" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/LoadJSON.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="25" column="41" lean-forward="true" selection-end-line="102" selection-end-column="24" />
               <folding>
-                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -118,23 +140,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3680">
-              <caret line="165" column="97" selection-start-line="165" selection-start-column="97" selection-end-line="165" selection-end-column="97" />
+            <state relative-caret-position="-1217">
+              <caret line="114" column="43" selection-start-line="114" selection-start-column="23" selection-end-line="114" selection-end-column="43" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <element signature="e#197#232#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/LoadJSON.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -173,11 +183,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/DatapackageUpload.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="110" column="41" selection-start-line="110" selection-start-column="41" selection-end-line="110" selection-end-column="41" />
+            <state relative-caret-position="667">
+              <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -188,8 +198,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lib/dataFormatter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1265">
-              <caret line="55" column="30" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
+            <state relative-caret-position="1380">
+              <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -198,8 +208,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Class</find>
-      <find>Manual</find>
       <find>prp</find>
       <find>prp0</find>
       <find>if</find>
@@ -228,6 +236,8 @@
       <find>workbook</find>
       <find>json</find>
       <find>ols</find>
+      <find>checked</find>
+      <find>editedSheets</find>
     </findStrings>
     <replaceStrings>
       <replace>isValidated</replace>
@@ -242,7 +252,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/forBuild.js" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
@@ -284,15 +293,16 @@
         <option value="$PROJECT_DIR$/../gardian user area/src/App.js" />
         <option value="$PROJECT_DIR$/../gardian user area/src/Components/Welcome.js" />
         <option value="$PROJECT_DIR$/../gardian user area/src/Components/UserAreaHeader.js" />
-        <option value="$PROJECT_DIR$/src/Components/MultistepRDF.js" />
-        <option value="$PROJECT_DIR$/src/Components/MultistepRDFComps/MakeRDF.js" />
-        <option value="$PROJECT_DIR$/src/lib/dataFormatter.js" />
-        <option value="$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet.js" />
         <option value="$PROJECT_DIR$/src/Components/MultistepRDFComps/LoadJSON.js" />
         <option value="$PROJECT_DIR$/src/Components/DatapackageUploadComps/DatapackageMutation.js" />
         <option value="$PROJECT_DIR$/src/Components/MyDatapackage.js" />
         <option value="$PROJECT_DIR$/src/Components/DatapackageUploadComps/AutocompleteRemote.js" />
         <option value="$PROJECT_DIR$/src/Components/DatapackageUpload.js" />
+        <option value="$PROJECT_DIR$/src/lib/dataFormatter.js" />
+        <option value="$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet.js" />
+        <option value="$PROJECT_DIR$/src/Components/MultistepRDFComps/MakeRDF.js" />
+        <option value="$PROJECT_DIR$/src/Components/MultistepRDFComps/GenerateRDF.js" />
+        <option value="$PROJECT_DIR$/src/Components/MultistepRDF.js" />
       </list>
     </option>
   </component>
@@ -361,14 +371,14 @@
               <item name="robbie" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="Autocomplete" type="462c0819:PsiDirectoryNode" />
+              <item name="DatapackageUploadComps" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="robbie" type="b2602c69:ProjectViewProjectNode" />
               <item name="robbie" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="DatapackageUploadComps" type="462c0819:PsiDirectoryNode" />
+              <item name="MultistepRDFComps" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="robbie" type="b2602c69:ProjectViewProjectNode" />
@@ -455,7 +465,7 @@
       <workItem from="1539932509029" duration="15744000" />
       <workItem from="1540189114806" duration="24401000" />
       <workItem from="1540276140068" duration="6334000" />
-      <workItem from="1540366531117" duration="3301000" />
+      <workItem from="1540366531117" duration="7694000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1538486275437</created>
@@ -520,11 +530,18 @@
       <option name="project" value="LOCAL" />
       <updated>1540303248870</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="beta 1">
+      <created>1540374839379</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1540374839379</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="275474000" />
+    <option name="totallyTimeSpent" value="279867000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -537,6 +554,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1933" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.1686874" />
       <window_info id="Structure" order="1" sideWeight="0.500821" side_tool="true" weight="0.1686874" />
@@ -629,16 +647,10 @@
     <MESSAGE value="rdf" />
     <MESSAGE value="beta version" />
     <MESSAGE value="fixed bug with opening unsuported files" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug with opening unsuported files" />
+    <MESSAGE value="beta 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="beta 1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/stepzilla.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="95" column="1" selection-start-line="95" selection-start-column="1" selection-end-line="95" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/react-stepzilla/docs/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -789,65 +801,10 @@
     <entry file="file://$PROJECT_DIR$/../gardian user area/src/App.js" />
     <entry file="file://$PROJECT_DIR$/../gardian user area/src/Components/Welcome.js" />
     <entry file="file://$PROJECT_DIR$/../gardian user area/src/Components/UserAreaHeader.js" />
-    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDF.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="25" column="30" lean-forward="true" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/ExcelAndReactiveComps/SheetJS.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="759">
           <caret line="39" column="50" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/MakeRDF.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2116">
-          <caret line="97" column="39" selection-start-line="97" selection-start-column="39" selection-end-line="97" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet/ManualTypes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2484">
-          <caret line="111" column="26" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3680">
-          <caret line="165" column="97" selection-start-line="165" selection-start-column="97" selection-end-line="165" selection-end-column="97" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#197#232#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/dataFormatter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1265">
-          <caret line="55" column="30" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/LoadJSON.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -890,10 +847,75 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/DatapackageUpload.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="110" column="41" selection-start-line="110" selection-start-column="41" selection-end-line="110" selection-end-column="41" />
+        <state relative-caret-position="667">
+          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/dataFormatter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1380">
+          <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1217">
+          <caret line="114" column="43" selection-start-line="114" selection-start-column="23" selection-end-line="114" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#197#232#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/RDFSheet/ManualTypes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1320">
+          <caret line="111" column="26" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/MakeRDF.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="154" column="65" selection-start-line="154" selection-start-column="65" selection-end-line="154" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/LoadJSON.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="25" column="41" lean-forward="true" selection-end-line="102" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDFComps/GenerateRDF.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-92">
+          <caret line="2" column="37" lean-forward="true" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/MultistepRDF.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>

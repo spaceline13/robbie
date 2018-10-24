@@ -3,6 +3,7 @@ import StepZilla from 'react-stepzilla';
 import UploadXL from "./MultistepRDFComps/UploadXL";
 import MakeRDF from "./MultistepRDFComps/MakeRDF";
 import LoadJSON from "./MultistepRDFComps/LoadJSON";
+import GenerateRDF from "./MultistepRDFComps/GenerateRDF";
 
 class MultistepRDF extends Component {
     constructor(props) {
@@ -19,7 +20,8 @@ class MultistepRDF extends Component {
         const steps = [
             {name: 'Upload Excel File', component: <UploadXL parent={this}/>},
             {name: 'Choose Model', component: <LoadJSON parent={this}/>},
-            {name: 'Generate RDF Specifications', component: <MakeRDF parent={this}/>}
+            {name: 'Edit Model', component: <MakeRDF parent={this}/>},
+            {name: 'Finished', component: <GenerateRDF parent={this}/>}
         ];
         return (
             <div>

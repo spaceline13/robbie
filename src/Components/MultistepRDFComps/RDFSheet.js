@@ -108,9 +108,11 @@ class RDFSheet extends Component {
         if(checked){
             this.headerLines[i].style.display='inline-block';
             this.state.headers[i].checked=true;
+            this.props.increaseGlobalChecks();
         }else{
             this.headerLines[i].style.display='none';
             this.state.headers[i].checked=false;
+            this.props.decreaseGlobalChecks();
             //this.toggleIframe(false);
         }
     }
