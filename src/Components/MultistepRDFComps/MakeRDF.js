@@ -148,11 +148,15 @@ class MakeRDF extends Component {
                                 </Tabs>
                                 <div>
                                     <button onClick={()=>{
-                                        this.saveSheet(this.state.currentSheet);
-                                        this.download(this.editedSheets,'myJSON.json','application/json');
+                                        if(this.state.globalValidHeaders>0) {
+                                            this.saveSheet(this.state.currentSheet);
+                                            this.download(this.editedSheets, 'myJSON.json', 'application/json');
+                                        }
                                     }} className={this.state.globalValidHeaders>0?'':'disabled'}>download model</button>
                                     <button onClick={()=>{
-                                        this.props.jumpToStep(3);
+                                        if(this.state.globalValidHeaders>0) {
+                                            this.props.jumpToStep(3);
+                                        }
                                     }} className={this.state.globalValidHeaders>0?'':'disabled'}>generate rdf</button>
                                 </div>
                             </div>
