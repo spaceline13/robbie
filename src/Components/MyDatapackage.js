@@ -33,7 +33,10 @@ class MyDatapackage extends Component {
                     <Query query={DATAPACKAGES}>
                         {({ loading, error, data }) => {
                             if (loading) return "Loading...";
-                            if (error) return `Error! ${error.message}`;
+                            if (error) {
+                                console.log(`Error! ${error.message}`);
+                                return 'We could not find any datasets in your folder';
+                            }
 
                             return (
                                 <section>

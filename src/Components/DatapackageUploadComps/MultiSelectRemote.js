@@ -3,7 +3,7 @@ import React from "react";
 import AsyncSelect from "react-select/lib/Async";
 
 
-class AutocompleteRemote extends Component {
+class MultiSelectRemote extends Component {
     fetchKeywords = (inputValue, callback) => {
         fetch("http://192.168.1.102:9200/agrovoc/_search?q="+inputValue).then(response => response.json()).then(data => {
             var res = data.hits;
@@ -20,4 +20,4 @@ class AutocompleteRemote extends Component {
         );
     }
 }
-export default AutocompleteRemote;
+export default MultiSelectRemote;

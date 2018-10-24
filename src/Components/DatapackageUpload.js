@@ -2,13 +2,12 @@ import {Component} from "react";
 import React from "react";
 import UserAreaHeader from "./UserAreaHeader";
 import { Form, Text } from 'informed';
-import request from "superagent";
 import CKEditor from 'react-ckeditor-wrapper';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import UploadDataset from "./DatapackageUploadComps/UploadDataset";
-import AutocompleteRemote from "./DatapackageUploadComps/AutocompleteRemote";
+import MultiSelectRemote from "./DatapackageUploadComps/MultiSelectRemote";
 import DatapackageMutation from "./DatapackageUploadComps/DatapackageMutation"
 class DatapackageUpload extends Component {
     constructor(props) {
@@ -73,12 +72,17 @@ class DatapackageUpload extends Component {
         this.setState({
             name: '',
             title: '',
-            profile: '',
+            author:'',
+            conEmail:'',
             description: '',
-            version: '',
-            author: '',
+            subject:'',
+            producer:'',
             date:moment(),
+            kind:'',
+            sources: '',
+            related: '',
             license: [],
+            terms:'',
             keywords: [],
             resources: []
         })
@@ -91,14 +95,21 @@ class DatapackageUpload extends Component {
             <div>
                 {authToken ? (
                 <form onSubmit={this.formSubmit} ref={this.formRef}>
-                    <label>name<input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} /></label><br />
-                    <label>title<input name="title" type="text" value={this.state.title} onChange={this.handleInputChange} /></label><br />
-                    <label>profile<input name="profile" type="text" value={this.state.profile} onChange={this.handleInputChange} /></label><br />
-                    <label>version<input name="version" type="text" value={this.state.version} onChange={this.handleInputChange} /></label><br />
-                    <label>description<CKEditor value={this.state.description} onChange={(value)=>this.setState({ description:value })} /></label><br />
-                    <label>date<DatePicker selected={this.state.date} onChange={(date)=>this.setState({ date:date })}/></label><br />
-                    <label>license<Select options={licesnes} value={this.state.license} onChange={(license)=>this.setState({ license:license })} /></label><br />
-                    <label>keywords<AutocompleteRemote value={this.state.keywords} setValue={(keyword)=>this.setState({ keywords:keyword })} /></label><br />
+                    <label>Name<input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} /></label><br />
+                    <label>Title<input name="title" type="text" value={this.state.title} onChange={this.handleInputChange} /></label><br />
+                    <label>Author<input name="author" type="text" value={this.state.author} onChange={this.handleInputChange} /></label><br />
+                    <label>Contributor Email<input name="conEmail" type="text" value={this.state.conEmail} onChange={this.handleInputChange} /></label><br />
+                    <label>Description<CKEditor value={this.state.description} onChange={(value)=>this.setState({ description:value })} /></label><br />
+                    <label>Subject<input name="subject" type="text" value={this.state.subject} onChange={this.handleInputChange} /></label><br />
+                    <label>Producer<input name="producer" type="text" value={this.state.producer} onChange={this.handleInputChange} /></label><br />
+                    <label>Date<DatePicker selected={this.state.date} onChange={(date)=>this.setState({ date:date })}/></label><br />
+                    <label>Kind of data<input name="kind" type="text" value={this.state.kind} onChange={this.handleInputChange} /></label><br />
+                    <label>Data sources<input name="sources" type="text" value={this.state.sources} onChange={this.handleInputChange} /></label><br />
+                    <label>Related material<input name="related" type="text" value={this.state.related} onChange={this.handleInputChange} /></label><br />
+                    <label>License<Select options={licesnes} value={this.state.license} onChange={(license)=>this.setState({ license:license })} /></label><br />
+                    <label>Terms of use<input name="terms" type="text" value={this.state.terms} onChange={this.handleInputChange} /></label><br />
+                    <label>References by <MultiSelectRemote value={this.state.keywords} setValue={(keyword)=>this.setState({ keywords:keyword })} /></label><br />
+                    <label>keywords<MultiSelectRemote value={this.state.keywords} setValue={(keyword)=>this.setState({ keywords:keyword })} /></label><br />
 
                     {this.props.noResource?<div></div>:<label>resources<UploadDataset form={this.formRef} changeFile={this.handleFileChange}/></label>}<br />
                     <DatapackageMutation resetForm={this.resetForm} onSubmit={this.props.onSubmit} vars={this.state}/>

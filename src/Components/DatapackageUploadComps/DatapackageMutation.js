@@ -3,7 +3,6 @@ import React from "react";
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import {DATAPACKAGES} from '../MyDatapackage';
-import OLS from "ols-autocomplete";
 
 const MUTATE=gql`
   mutation($datapackage: DatapackageInput!) {
@@ -12,10 +11,6 @@ const MUTATE=gql`
 `;
 class DatapackageMutation extends Component {
     render() {
-        var ols = new OLS();
-        setTimeout(function(){
-            ols.start({action:function(relativePath, suggestion_ontology, type, iri, data){console.log(data)}});
-        },100);
         return(
             <Mutation mutation={MUTATE}>
                 {(uploadDatapackage,{data}) => (
