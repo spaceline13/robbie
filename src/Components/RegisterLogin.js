@@ -5,8 +5,8 @@ import gql from 'graphql-tag';
 
 const SIGNUP = gql`
     mutation addUser($username: String!, $password: String!, $email: String!) {
-        addUser(username: $username, password: $password, email: $email, role: "USER") {
-            token
+        addUser(username: $username, password: $password, email: $email) {
+            id
         }
     }
 `;
@@ -59,8 +59,9 @@ class RegisterLogin extends Component {
                         mutation={login ? LOGIN : SIGNUP}
                         variables={{ username, password, email }}
                         onCompleted={data => this._confirm(data)}
+                        onError={error => {alert(error.message.replace('GraphQL error:', '').trim())}}
                     >
-                        {mutation => (
+                        {(mutation) => (
                             <button onClick={mutation}>
                                 {login ? 'login' : 'create account'}
                             </button>
@@ -75,12 +76,8 @@ class RegisterLogin extends Component {
     }
     _confirm = async data => {
         const { token } = this.state.login ? data.login : data.addUser;
-        this._saveUserData(token);
-        this.props.history.push(`/`);
-    };
-
-    _saveUserData = token => {
         localStorage.setItem('auth-token', token);
+        this.props.history.push(`/`);
     };
 }
 

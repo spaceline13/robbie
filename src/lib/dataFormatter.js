@@ -53,13 +53,13 @@ export function formatDataForXLSX(input){
 }
 export function formatDataForRDFization(input,headers){
     const data = input;
-    var output = {columns:[]};
+    var output = [];
     for (var header in headers){ //columns
         if(header!='isValid') {//there is a header named isvalid which we want to skip
-            output.columns[header] = headers[header];
-            output.columns[header].data = [];
+            output[header] = headers[header];
+            output[header].data = [];
             for (var i = 1; i < data.length; i++) { //rows
-                output['columns'][header]['data'].push(input[i][header]);
+                output[header]['data'].push(input[i][header]);
             }
         }
     }

@@ -9,31 +9,35 @@ import moment from 'moment';
 import UploadDataset from "./DatapackageUploadComps/UploadDataset";
 import MultiSelectRemote from "./DatapackageUploadComps/MultiSelectRemote";
 import DatapackageMutation from "./DatapackageUploadComps/DatapackageMutation"
+import MultiInput from "./DatapackageUploadComps/MultiInput";
+
 class DatapackageUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
             name: '',
             title: '',
-            author:'',
-            conEmail:'',
+            creator:'',
+            contributor:'',
             description: '',
-            subject:'',
-            producer:'',
+            publisher:'',
             date:moment(),
-            kind:'',
+            type:'',
             sources: '',
-            related: '',
+            relation: '',
             license: [],
-            terms:'',
-            keywords: [],
+            rights:'',
+            subject: [],
             resources: []
         };
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleValueChange = this.handleValueChange.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
-        this.formSubmit = this.formSubmit.bind(this);
         this.formRef = React.createRef();
+        this.setFiles = this.setFiles.bind(this);
+        this.getFiles = this.getFiles.bind(this);
         this.resetForm = this.resetForm.bind(this);
+        this.files = [];
     };
     handleInputChange(event) {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
@@ -42,82 +46,72 @@ class DatapackageUpload extends Component {
             [name]: value
         });
     }
+    handleValueChange(name,value){
+        console.log(name,value);
+        this.setState({
+            [name]: value
+        });
+        console.log(this.state);
+    }
     handleFileChange(data) {
-        data = data.data.uploadDataset;
         var res = [];
-        res.push({name:data.name,path:data.path});
+        for(var i=0;i<data.length;i++){
+            res[i] = {name:data[i].name,path:data[i].path};
+        }
         this.setState({resources:res});
         console.log(this.state);
     }
-    formSubmit(e){
-        /*const req = request.post('http://localhost:2000/uploadDataset');
-        for(var key in this.state){
-            if(key=="resources"){
-                if(this.state.resources.length>0) {
-                    req.attach(this.state.resources[0].name, this.state.resources[0]);
-                }
-            } else {
-                if(typeof this.state[key] === 'object'){
-                    if(this.state[key] instanceof moment){
-                        req.field(key,this.state[key]);
-                    }else{
-                        req.field(key,JSON.stringify(this.state[key]));
-                    }
-                } else {
-                    req.field(key,this.state[key]);
-                }
-            }
-        }
-        req.field('username','timos');
-        req.end();*/
-        this.props.onSubmit();
+    setFiles(files){
+        console.log('set',files);
+        this.files = files;
+        console.log('set2',this.files);
+    }
+    getFiles(){
+        return {files:this.files};
     }
     resetForm (){
         this.formRef.current.reset();
         this.setState({
             name: '',
             title: '',
-            author:'',
-            conEmail:'',
+            creator:'',
+            contributor:'',
             description: '',
-            subject:'',
-            producer:'',
+            publisher:'',
             date:moment(),
-            kind:'',
+            type:'',
             sources: '',
-            related: '',
+            relation: '',
             license: [],
-            terms:'',
-            keywords: [],
+            rights:'',
+            subject: [],
             resources: []
         })
     };
 
     render() {
         const authToken = localStorage.getItem('auth-token');
-        const licesnes = [{name:'cc0',title:'mplampla',path:'www',label:'cc0'},{name:'ogl',title:'mplampla',path:'wwww',label:'ogl'}];
+        const licesnes = [{name:'CC0',title:'CC0',path:'https://creativecommons.org/share-your-work/public-domain/cc0/',label:'CC0'},{name:'NONE',title:'NONE',path:'',label:'NONE'}];
         return (
             <div>
                 <UserAreaHeader features={['auth','upload','myData']}/>
                 {authToken ? (
-                <form onSubmit={this.formSubmit} ref={this.formRef}>
+                <form ref={this.formRef}>
                     <label>Name<input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} /></label><br />
                     <label>Title<input name="title" type="text" value={this.state.title} onChange={this.handleInputChange} /></label><br />
-                    <label>Author<input name="author" type="text" value={this.state.author} onChange={this.handleInputChange} /></label><br />
-                    <label>Contributor Email<input name="conEmail" type="text" value={this.state.conEmail} onChange={this.handleInputChange} /></label><br />
+                    <label>Creators<MultiInput value={this.state.creator} placeholder={'add creator and press enter'} setParentValue={(value)=>{this.handleValueChange('creator',value)}}/></label><br />
+                    <label>Contributors<MultiInput value={this.state.contributor} placeholder={'add contributor and press enter'} setParentValue={(value)=>{this.handleValueChange('contributor',value)}}/></label><br />
                     <label>Description<CKEditor value={this.state.description} onChange={(value)=>this.setState({ description:value })} /></label><br />
-                    <label>Subject<input name="subject" type="text" value={this.state.subject} onChange={this.handleInputChange} /></label><br />
-                    <label>Producer<input name="producer" type="text" value={this.state.producer} onChange={this.handleInputChange} /></label><br />
+                    <label>Subjects<MultiSelectRemote value={this.state.subject} setValue={(subject)=>this.setState({ subject:subject })} /></label><br />
+                    <label>Publishers<MultiInput value={this.state.publisher} placeholder={'add publisher and press enter'} setParentValue={(value)=>{this.handleValueChange('publisher',value)}}/></label><br />
                     <label>Date<DatePicker selected={this.state.date} onChange={(date)=>this.setState({ date:date })}/></label><br />
-                    <label>Kind of data<input name="kind" type="text" value={this.state.kind} onChange={this.handleInputChange} /></label><br />
-                    <label>Data sources<input name="sources" type="text" value={this.state.sources} onChange={this.handleInputChange} /></label><br />
-                    <label>Related material<input name="related" type="text" value={this.state.related} onChange={this.handleInputChange} /></label><br />
+                    <label>Data type<input name="type" type="text" value={this.state.type} onChange={this.handleInputChange} /></label><br />
+                    <label>Data sources<MultiInput value={this.state.sources} placeholder={'add source and press enter'} setParentValue={(value)=>{this.handleValueChange('sources',value)}}/></label><br />
+                    <label>Related material<MultiInput value={this.state.relation} placeholder={'add relation and press enter'} setParentValue={(value)=>{this.handleValueChange('relation',value)}}/></label><br />
                     <label>License<Select options={licesnes} value={this.state.license} onChange={(license)=>this.setState({ license:license })} /></label><br />
-                    <label>Terms of use<input name="terms" type="text" value={this.state.terms} onChange={this.handleInputChange} /></label><br />
-                    <label>Referenced by<input name="referenced" type="text" value={this.state.referenced} onChange={this.handleInputChange} /></label><br />
-                    <label>keywords<MultiSelectRemote value={this.state.keywords} setValue={(keyword)=>this.setState({ keywords:keyword })} /></label><br />
-                    {this.props.noResource?<div></div>:<label>resources<UploadDataset form={this.formRef} changeFile={this.handleFileChange}/></label>}<br />
-                    <DatapackageMutation resetForm={this.resetForm} onSubmit={this.props.onSubmit} vars={this.state}/>
+                    <label>Terms of use<input name="rights" type="text" value={this.state.rights} onChange={this.handleInputChange} /></label><br />
+                    {this.props.noResource?<div></div>:<label>resources<UploadDataset form={this.formRef} setFiles={this.setFiles} changeFile={this.handleFileChange}/></label>}<br />
+                    <DatapackageMutation resetForm={this.resetForm} onSubmit={this.props.onSubmit} getFiles={this.getFiles} vars={this.state}/>
                 </form>
                 ):<div></div>}
             </div>

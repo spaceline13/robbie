@@ -5,35 +5,48 @@ import gql from 'graphql-tag';
 
 const UPLOAD=gql`
   mutation($file: Upload!) {
-       uploadDataset(file:$file){
+       uploadResource(file:$file){
             name
             path
        }
   }
 `;
+
 class UploadDataset extends Component {
     render() {
         return(
             <Mutation mutation={UPLOAD}>
-                {(uploadDataset,{data}) => (
-                    <input type="file" required onChange={async (e) => {
-                        e.preventDefault();
-                        if (typeof FileReader !== "undefined") {
-                            if(e.target.files.length>0){
-                                var size = e.target.files[0].size;
-                                if(size>25000000){
-                                    alert('file must be smaller than 25MB');
-                                    this.props.form.current.reset();
-                                } else {
-                                    console.log('here');
-                                    var res = await uploadDataset({
-                                        variables: { file: e.target.files[0]}
-                                    });
-                                    this.props.changeFile(res);
+                {(uploadResource,{loading, error}) => (
+                    <span>
+                        <input type="file" multiple required onChange={async (e) => {
+                            e.preventDefault();
+                            if (typeof FileReader !== "undefined") {
+                                var my = {files:e.target.files};
+                                if(my.files.length>0){
+                                    var valid = true;
+                                    for(var i=0;i<my.files.length;i++){
+                                        if(my.files[i].size>25000000){
+                                            valid = false;
+                                        }
+                                    }
+                                    if(!valid){
+                                        alert('file must be smaller than 25MB');
+                                        this.props.form.current.reset();
+                                    } else {
+                                        var res = await uploadResource({
+                                            variables: { file: my.files}
+                                        });
+                                        if(res.data) {
+                                            this.props.changeFile(res.data.uploadResource);
+                                            this.props.setFiles(my.files);
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }} />
+                        }} />
+                        {loading && <p>Loading...</p>}
+                        {error && <p>Error :( Please try again</p>}
+                    </span>
                 )}
             </Mutation>
         );

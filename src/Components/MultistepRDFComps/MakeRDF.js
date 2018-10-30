@@ -84,22 +84,15 @@ class MakeRDF extends Component {
     }
     download(content, fileName, contentType) {
         var modelJSON = {sheets:{}};
-        var rdfJSON = {sheets:[]};
         var validDoc = true;
         for(var sheet in content){
             modelJSON.sheets[sheet] = {headers:{}};
-            rdfJSON.sheets[sheet] = {headers:null};
-            const data = XLSX.utils.sheet_to_json(this.props.parent.state.workbook.Sheets[sheet], {header:1});
             for (var header in content[sheet]){
                 modelJSON.sheets[sheet].headers[header] = content[sheet][header];
                 if(!content[sheet]['isValid']) {
                     validDoc = false;
                 }
             }
-            //setTimeout(function(){
-            rdfJSON.sheets[sheet].headers = formatDataForRDFization(data,modelJSON.sheets[sheet].headers);
-            console.log('data:',rdfJSON);
-            //},3000);
         }
         if(validDoc) {
             //console.log(JSON, JSON.stringify(modelJSON));
@@ -110,7 +103,27 @@ class MakeRDF extends Component {
         }
     }
     makeJSONincludingData(content){
-
+        var validDoc = true;
+        var rdfJSON = {sheets:[]};
+        var modelJSON = {sheets:{}};
+        var i = 0;
+        for(var sheet in content) {
+            modelJSON.sheets[sheet] = {headers: []};
+            rdfJSON.sheets[i] = {sheetName: sheet, headers: []};
+            const data = XLSX.utils.sheet_to_json(this.props.parent.state.workbook.Sheets[sheet], {header: 1});
+            for (var header in content[sheet]) {
+                modelJSON.sheets[sheet].headers[header] = content[sheet][header];
+                if (!content[sheet]['isValid']) {
+                    validDoc = false;
+                }
+            }
+            rdfJSON.sheets[i++].headers = formatDataForRDFization(data, modelJSON.sheets[sheet].headers);
+        }
+        if(validDoc) {
+            console.log('data:', rdfJSON);
+            var file = new Blob([JSON.stringify(rdfJSON)], {type: 'application/json'});
+            fileDownload(file, 'rdfJSON.json', );
+        }
     }
     increaseGlobalChecks(){
         console.log(this.state.globalValidHeaders);
@@ -155,6 +168,8 @@ class MakeRDF extends Component {
                                     }} className={this.state.globalValidHeaders>0?'':'disabled'}>download model</button>
                                     <button onClick={()=>{
                                         if(this.state.globalValidHeaders>0) {
+                                            this.saveSheet(this.state.currentSheet);
+                                            this.makeJSONincludingData(this.editedSheets);
                                             this.props.jumpToStep(3);
                                         }
                                     }} className={this.state.globalValidHeaders>0?'':'disabled'}>generate rdf</button>

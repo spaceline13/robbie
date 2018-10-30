@@ -10,6 +10,7 @@ import MyDatapackage from "./Components/MyDatapackage";
 import MultistepRDF from "./Components/MultistepRDF";
 import GardianRepositories from "./Components/Gardian/GardianRepositories";
 import GardianServices from "./Components/Gardian/GardianServices";
+import UserList from "./Components/CMS/UserList";
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
                 <div className="App">
                     <Switch>
                         <Route exact path="/" component={Welcome} />
+                        <Route exact path="/adminusers" component={UserList} />
                         <Route exact path="/authenticate" component={RegisterLogin} />
                         <Route exact path="/excel" component={ExcelAndReactive} />
                         <Route exact path="/upload" component={DatapackageUpload} />

@@ -8,7 +8,7 @@ class Welcome extends Component {
         const authToken = localStorage.getItem('auth-token');
         return (
             <div>
-                <UserAreaHeader features={['auth','excel','rdf','myData','upload']}/>
+                <UserAreaHeader features={['auth','excel','rdf','myData','upload','admin']}/>
                 {authToken ? (
                     <center>
                         <Link to="/upload" style={{display:"inline-block", cursor: "pointer", margin:"15px", textDecoration:"none"}}>
